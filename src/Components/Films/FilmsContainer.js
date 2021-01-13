@@ -27,7 +27,7 @@ class FilmsContainer extends React.Component {
 
         console.log("calling: " + this.props.films.currentApiEndpoint)
 
-        axios.get(this.props.films.currentApiEndpoint, {params: {sort: "priorita DESC"}}).then(resp => {
+        axios.get(`${process.env.voidApipEndpoint}${this.props.films.currentApiEndpoint}`, {params: {sort: "priorita DESC"}}).then(resp => {
             this.props.setFilmsListAction(resp.data)
             this.props.setIsLoading(false)
         })
