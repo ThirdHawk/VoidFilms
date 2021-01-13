@@ -1,0 +1,52 @@
+.filmToWatchWithPriority{
+    padding:10px;
+    border:solid black 2px;
+    background-color:orangered;
+}
+.filmToWatch{
+    padding:10px;
+    border:solid black 2px;
+    background-color:darkorange;
+}
+
+.film{
+    padding:10px;
+    border:solid black 2px;
+    background-color:deepskyblue;
+}
+
+img{
+    width:200px;
+}
+
+.container{
+    display:inline-flex;
+    flex-direction:row;
+    flex-wrap: wrap;
+    z-index:1;
+    transition-duration:.2s;
+    cursor:pointer;
+}
+.container:hover{
+    z-index:100;
+    transform:scale(1.1);
+}
+
+/*********************/
+@media screen and (max-width: 700px) {
+    .container{
+        width:100%;
+    }
+    .film{
+        width:100%;
+    }
+    .filmToWatch{
+        width:100%;
+    }
+    .filmToWatchWithPriority{
+        width:100%;
+    }
+    img{
+        width:100px;
+    }
+}

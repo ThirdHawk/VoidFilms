@@ -1,0 +1,14 @@
+.navLink{
+    padding-left:10px;
+    font-size: 20px;
+    color:white;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+.navLink:hover{
+    color:deepskyblue;
+}
+.active{
+    font-weight: bold;
+    font-size:25px;
+}
