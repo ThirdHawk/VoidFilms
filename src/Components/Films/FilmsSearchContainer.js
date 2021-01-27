@@ -92,13 +92,9 @@ class FilmsSearchContainer extends React.Component {
                        onChange={() => this.onSearchFieldChange()} value={this.props.filmsSearch.filmToSearch}/>
                 <button onClick={() => this.props.resetFilmToSearch()}>Reset</button>
                 <p>
-                    {filmsToDisplay === "" ?
-                        <img src={dudeStaring} className={style.dudeStaringImg}/>
-                        :
-                        <div className={style.genericSearchContainer}>
-                            {filmsToDisplay}
-                        </div>
-                    }
+                    <div className={style.genericSearchContainer}>
+                        {filmsToDisplay}
+                    </div>
                 </p>
             </div>
         )
