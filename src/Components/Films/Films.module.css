@@ -8,17 +8,14 @@
     border:solid black 2px;
     background-color:darkorange;
 }
-
 .film{
     padding:10px;
     border:solid black 2px;
     background-color:deepskyblue;
 }
-
 img{
     width:200px;
 }
-
 .container{
     display:inline-flex;
     flex-direction:row;
@@ -29,9 +26,99 @@ img{
 }
 .container:hover{
     z-index:100;
-    transform:scale(1.1);
+    transform:scale(1.01);
 }
 
+.genericSearchContainer{
+    display:inline-flex;
+    flex-direction:row;
+    flex-wrap: wrap;
+
+
+}
+.genericSearchFilm{
+    background-color: lightgrey;
+    z-index:1;
+    transition-duration:.2s;
+    cursor:pointer;
+    padding:10px;
+    margin:10px;
+    height:100%;
+}
+.genericSearchFilm:hover{
+    z-index:100;
+    background-color: darkorange;
+    opacity: 1;
+    transform:scale(1.01);
+
+}
+.genericSearchFilm_inDb{
+    background-color: grey;
+    z-index:1;
+    transition-duration:.2s;
+    cursor:pointer;
+    opacity:.5;
+    padding:10px;
+    margin:10px;
+    height:100%;
+
+}
+.genericSearchFilm_inDb:hover{
+    z-index:100;
+    opacity: 1;
+    /*transform:scale(1.01);*/
+}
+.addBtn{
+    border:2px solid black;
+    width:100%;
+    height:50px;
+    background-color: black;
+    color:lightgrey;
+    transition-duration: .2s;
+}
+.addBtn:hover{
+    cursor: pointer;
+    background-color: white;
+    color:black;
+    transform: scale(1.01);
+    transition-duration: .2s;
+}
+.removeBtn{
+    border:2px solid black;
+    width:100%;
+    height:50px;
+    background-color: black;
+    color:lightgrey;
+    transition-duration: .2s;
+}
+.removeBtn:hover{
+    border-color:red;
+    cursor: pointer;
+    background-color: white;
+    color:red;
+    transform: scale(1.01);
+    transition-duration: .2s;
+}
+.dudeStaringImg{
+    width:40%;
+    opacity:0;
+    animation: dudeFadeIn;
+    animation-delay: 15s;
+    animation-duration: 120s;
+    animation-direction: normal;
+    animation-fill-mode: forwards;
+
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+}
+/*******************/
+@keyframes dudeFadeIn {
+    from {opacity: 0}
+    to{opacity: 1}
+}
 /*********************/
 @media screen and (max-width: 700px) {
     .container{
@@ -48,5 +135,15 @@ img{
     }
     img{
         width:100px;
+    }
+    .genericSearchFilm{
+        width:100%;
+    }
+    .genericSearchFilm_inDb{
+        width:100%;
+    }
+    .dudeStaringImg{
+        width: 100vw;
+        height: 100vh;
     }
 }

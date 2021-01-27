@@ -1,14 +1,18 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import Film from "./Film";
-import {setFilmsListAction, setIsLoading, setCurrentApiEndpoint, resetFilmsList} from "../../redux/films-reducer";
+import {setFilmsListAction, setIsLoading, setCurrentApiEndpoint, resetFilmsList, removeFilmFromList} from "../../redux/films-reducer";
 import axios from "axios";
 import Loader from "../Loader/Loader";
 import {ColorLegend} from "./ColorLegend";
+import Cookies from 'js-cookie'
 
 class FilmsContainer extends React.Component {
 
     componentDidMount() {
+        if(Cookies.get('logged') !== 'true'){
+            window.location.replace("/login")
+        }
         if (this.props.films.list.length === 0) {
             this.getFilmsFromApi();
         }
@@ -25,31 +29,41 @@ class FilmsContainer extends React.Component {
             this.props.setIsLoading(true)
         }
 
-        console.log("test")
-        console.log("calling: " + this.props.films.currentApiEndpoint)
-
-        axios.get(`${process.env.voidApipEndpoint}${this.props.films.currentApiEndpoint}`, {params: {sort: "priorita DESC"}}).then(resp => {
-            console.log("data is")
-            console.log(resp.data)
+        let baseUrl = process.env.voidApipEndpoint;
+        axios.get(`${baseUrl}${this.props.films.currentApiEndpoint}`, {params: {sort: "priorita DESC"}}).then(resp => {
+            console.log("data is", resp.data)
             this.props.setFilmsListAction(resp.data)
             this.props.setIsLoading(false)
         })
     }
 
     setCurrentApiEndpoint = (endpoint) => {
-        // console.log("old: " + this.props.films.currentApiEndpoint)
-        // console.log("new: " + endpoint)
         if(this.props.films.currentApiEndpoint !== endpoint) {
             this.props.resetFilmsList()
             this.props.setCurrentApiEndpoint(endpoint)
         }
+    }
+    componentWillUnmount() {
+        this.props.resetFilmsList()
     }
 
     render() {
         let filmsToDisplay = null
 
         if (this.props.films.list.length !== 0) {
-            filmsToDisplay = this.props.films.list.map(film => <Film film={film}/>)
+            filmsToDisplay = this.props.films.list.map(film => <Film film={film}
+                removeFromDb={(film) =>{
+                    if(window.confirm("Are you sure you want to delete this film ?")){
+                        axios.post('/api/films/remove-film', {film : film}).then(resp =>{
+                            if(resp.status===200){
+                                this.props.removeFilmFromList(film)
+                            }else{
+                                alert("Something went wrong...")
+                            }
+                        })
+                    }
+                }
+            }/>)
         }
 
         if (filmsToDisplay === null) {
@@ -64,6 +78,7 @@ class FilmsContainer extends React.Component {
                 <div>
                     <ColorLegend/>
                 </div>
+                <h2 style={{color:"white"}}>TOTALE PAGINA : {this.props.films.list.length}</h2>
                 <div>
                     {this.props.films.isLoading === true ? <Loader/> : filmsToDisplay}
                 </div>
@@ -75,7 +90,8 @@ class FilmsContainer extends React.Component {
 
 let mapStateToProps = (state) => {
     return {
-        films: state.films
+        films: state.films,
+        user: state.user
     }
 }
 
@@ -83,5 +99,6 @@ export default connect(mapStateToProps, {
     setFilmsListAction,
     setIsLoading,
     setCurrentApiEndpoint,
-    resetFilmsList
+    resetFilmsList,
+    removeFilmFromList
 })(FilmsContainer)

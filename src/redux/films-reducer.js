@@ -2,6 +2,7 @@ const SET_FILMS_LIST = "setFilmsList";
 const SET_IS_LOADING = "setIsLoading";
 const SET_CURRENT_API_ENDPOINT = "setCurrentApiEndpoint"
 const RESET_FILMS_LIST = "resetFilmsList"
+const REMOVE_FILM_FROM_LIST = "removeFilmFromList"
 
 export const setFilmsListAction = (obj) => ({
     type: SET_FILMS_LIST,
@@ -18,6 +19,12 @@ export const setCurrentApiEndpoint = (endpoint) => ({
 export const resetFilmsList = () => ({
     type: RESET_FILMS_LIST,
     payload: null
+})
+export const removeFilmFromList = (film) => ({
+    type: REMOVE_FILM_FROM_LIST,
+    payload: {
+        film
+    }
 })
 
 let initialState = {
@@ -47,6 +54,11 @@ export const FilmsReducer = (state = initialState, action) => {
             return {
                 ...state,
                 list: []
+            }
+        case REMOVE_FILM_FROM_LIST:
+            return {
+                ...state,
+                list: [...state.list.filter(film => film.id !== action.payload.film.id)]
             }
         default:
             return state

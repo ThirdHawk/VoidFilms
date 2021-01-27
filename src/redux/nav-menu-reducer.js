@@ -3,7 +3,8 @@ let initialState = {
     links : [
         // {name : "Home", path : "/"},
         // {name : "Items", path : "/items"},
-        {name : "Films", path : "/films"},
+        {name : "Films List", path : "/films"},
+        {name : "Add Films", path : "/films-search"},
     ]
 }
 

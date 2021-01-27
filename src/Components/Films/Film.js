@@ -13,6 +13,7 @@ let Film = (props) => {
                     <div><i>Priority: [{props.film.priorita}]</i></div>
                 }
                 <div><i>ID: {props.film.id}</i></div>
+                <input type="button" value="Rimuovi da DB" onClick={() => props.removeFromDb(props.film)} className={style.removeBtn}/>
             </div>
         </div>
     )

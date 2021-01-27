@@ -15,7 +15,6 @@ export const addItem = (name, num) => {
         }
     }
 }
-
 export const removeItem = (id) => {
     return {
         type: REMOVE_ITEM,
